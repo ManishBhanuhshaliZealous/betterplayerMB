@@ -217,13 +217,14 @@ class BetterPlayerControlsConfiguration {
 
   factory BetterPlayerControlsConfiguration.white() {
     return const BetterPlayerControlsConfiguration(
-        controlBarColor: Colors.white,
-        textColor: Colors.black,
-        iconsColor: Colors.black,
-        progressBarPlayedColor: Colors.black,
-        progressBarHandleColor: Colors.black,
-        progressBarBufferedColor: Colors.black54,
-        progressBarBackgroundColor: Colors.white70);
+      controlBarColor: Colors.white,
+      textColor: Colors.black,
+      iconsColor: Colors.black,
+      progressBarPlayedColor: Colors.black,
+      progressBarHandleColor: Colors.black,
+      progressBarBufferedColor: Colors.black54,
+      progressBarBackgroundColor: Colors.white70,
+    );
   }
 
   factory BetterPlayerControlsConfiguration.cupertino() {
@@ -240,8 +241,8 @@ class BetterPlayerControlsConfiguration {
   ///Setup BetterPlayerControlsConfiguration based on Theme options.
   factory BetterPlayerControlsConfiguration.theme(ThemeData theme) {
     return BetterPlayerControlsConfiguration(
-      textColor: theme.textTheme.bodySmall?.color ?? Colors.white,
-      iconsColor: theme.buttonTheme.colorScheme?.primary ?? Colors.white,
+      textColor: theme.textTheme.bodyMedium?.color ?? Colors.white,
+      iconsColor: theme.colorScheme.primary ?? Colors.white,
     );
   }
 }
