@@ -217,19 +217,42 @@ class _ProgressBarPainter extends CustomPainter {
     final double playedPart =
         playedPartPercent > 1 ? size.width : playedPartPercent * size.width;
     for (final DurationRange range in value.buffered) {
-      final double start = range.startFraction(value.duration!) * size.width;
-      final double end = range.endFraction(value.duration!) * size.width;
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromPoints(
-            Offset(start, baseOffset),
-            Offset(end, baseOffset + barHeight),
+      final double start = range.startFraction(value.duration!).isNaN
+          ? 0
+          : range.startFraction(value.duration!) * size.width;
+      final double end = range.endFraction(value.duration!).isNaN
+          ? 0
+          : range.endFraction(value.duration!) * size.width;
+
+      // Ensure that start is not greater than end
+      if (start >= 0 && end >= 0 && start < end) {
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(
+            Rect.fromPoints(
+              Offset(start, baseOffset),
+              Offset(end, baseOffset + barHeight),
+            ),
+            const Radius.circular(4.0),
           ),
-          const Radius.circular(4.0),
-        ),
-        colors.bufferedPaint,
-      );
+          colors.bufferedPaint,
+        );
+      }
     }
+
+    // for (final DurationRange range in value.buffered) {
+    //   final double start = range.startFraction(value.duration!) * size.width;
+    //   final double end = range.endFraction(value.duration!) * size.width;
+    //   canvas.drawRRect(
+    //     RRect.fromRectAndRadius(
+    //       Rect.fromPoints(
+    //         Offset(start, baseOffset),
+    //         Offset(end, baseOffset + barHeight),
+    //       ),
+    //       const Radius.circular(4.0),
+    //     ),
+    //     colors.bufferedPaint,
+    //   );
+    // }
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromPoints(
